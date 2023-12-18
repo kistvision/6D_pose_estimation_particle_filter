@@ -116,11 +116,11 @@ void Render(int handle) {
 	cudaMemcpy(frameBuffer.p_rotation, vertexBuffers[handle]->v_rotation.data(), sizeof(glm::mat3) * frameBuffer.num_particles, cudaMemcpyHostToDevice);
 	cudaMemcpy(frameBuffer.p_translation, vertexBuffers[handle]->v_translation.data(), sizeof(glm::vec3) * frameBuffer.num_particles, cudaMemcpyHostToDevice);
 
-	// glm::mat3* h_data = (glm::mat3 *)malloc(sizeof(glm::mat3) * frameBuffer.num_particles);
-	// cudaMemcpy(h_data, frameBuffer.p_rotation, sizeof(glm::mat3) * frameBuffer.num_particles, cudaMemcpyDeviceToHost);
-	// std::cout << glm::mat3(h_data[0]) << std::endl;
-	// std::cout << glm::mat3(h_data[1]) << std::endl;
-	// std::cout << glm::mat3(h_data[2]) << std::endl;
+	glm::mat3* h_data = (glm::mat3 *)malloc(sizeof(glm::mat3) * frameBuffer.num_particles);
+	cudaMemcpy(h_data, frameBuffer.p_rotation, sizeof(glm::mat3) * frameBuffer.num_particles, cudaMemcpyDeviceToHost);
+	std::cout << glm::mat3(h_data[0]) << std::endl;
+	std::cout << glm::mat3(h_data[1]) << std::endl;
+	std::cout << glm::mat3(h_data[2]) << std::endl;
 	
 
 	Render(*vertexBuffers[handle], frameBuffer);

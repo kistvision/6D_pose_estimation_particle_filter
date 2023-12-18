@@ -1,9 +1,7 @@
 import numpy as np
 import skimage.io as sio
 from argparse import ArgumentParser
-from mayavi import mlab
 from plyfile import PlyData, PlyElement
-
 
 def LoadOff(model_path):
 	lines = [l.strip() for l in open(model_path)]

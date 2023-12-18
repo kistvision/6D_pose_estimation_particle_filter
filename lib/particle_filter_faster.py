@@ -127,7 +127,7 @@ class ParticleFilter():
             self.cam_fy = 614.57214355
             self.cam_cx = 321.50134277
             self.cam_cy = 245.26997375
-            self.cam_scale = 0.0001
+            self.cam_scale = 1.0
             self.dataset_root_dir = dataset_root_dir
             self.ycb_toolbox_dir = libpath + '/../CenterFindNet/YCB_Video_toolbox'
             self.dataset_config_dir = libpath + '/../CenterFindNet/datasets/dataset_config'
@@ -299,7 +299,7 @@ class ParticleFilter():
             rmin = y
             cmax = x + w
             rmax = y + h
-            print(cmin, cmax, rmin, rmax)
+            # print(cmin, cmax, rmin, rmax)
 
         masked_depth_copy = masked_depth.copy()
         masked_depth_copy = masked_depth_copy[masked_depth_copy > 0]
@@ -316,10 +316,10 @@ class ParticleFilter():
             depth_zero_in_mask = np.logical_and(mask_label, np.logical_not(depth))
             other_objects_region[depth_zero_in_mask] = 1
 
-        # cv2.imshow("O", other_objects_region.astype(np.float))
+        # cv2.imshow("O", other_objects_region.astype(np.uint8))
+        # cv2.waitKey(0)
         # cv2.imwrite("O.png", other_objects_region.astype(np.uint8))
         # exit(0)
-
 
         """ Initial pose hypotheses """
         poses = []
@@ -389,10 +389,10 @@ class ParticleFilter():
                 quat = list(euler2quat(sample_ryp[0], sample_ryp[1], sample_ryp[2]))
                 pose = np.hstack([centroid[0], centroid[1], centroid[2], quat])
                 poses.append(pose)
-
         render.setSrcDepthImage(self.info, masked_depth.copy(), other_objects_region.copy())
 
         for iters in range(self.max_iteration):
+            print(iters)
 
             if iters < 5:
                 threshold = self.taus[itemid-1] / (iters * 2+1)
@@ -412,15 +412,13 @@ class ParticleFilter():
             transform_matrixes = transform_matrixes.astype(np.float32)
             render.render(context, transform_matrixes)
 
-            # rendered_image = render.getDepth(self.info)
-            # for im in rendered_image:
-            #     cv2.imshow("rendered_image", im)
-            #     cv2.waitKey(0)
+            rendered_image = render.getDepth(self.info)
+            for im in rendered_image:
+                cv2.imshow("rendered_image", im)
+                cv2.waitKey(0)
 
             """ Access to the CUDA memory to get the scores of each pose hypothesis. """
             scores = render.getMatchingScores(len(poses))
-
-            # exit(0)
 
             if len(scores[scores > 0]) == 0:
                 continue

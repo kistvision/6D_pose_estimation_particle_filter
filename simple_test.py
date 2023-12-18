@@ -39,6 +39,10 @@ if __name__ == '__main__':
     img = cv2.resize(img, (640, 480), interpolation=cv2.INTER_LINEAR)
     depth = cv2.resize(depth, (640, 480), interpolation=cv2.INTER_LINEAR)
 
+    # cv2.imshow('label', label)
+    # cv2.imshow('img', img)
+    # cv2.imshow('depth', depth)
+    # cv2.waitKey(0)
     label[label>0] = 1
 
     labels = label[label > 0]
