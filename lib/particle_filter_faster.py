@@ -392,7 +392,6 @@ class ParticleFilter():
         render.setSrcDepthImage(self.info, masked_depth.copy(), other_objects_region.copy())
 
         for iters in range(self.max_iteration):
-            print(iters)
 
             if iters < 5:
                 threshold = self.taus[itemid-1] / (iters * 2+1)
@@ -412,10 +411,12 @@ class ParticleFilter():
             transform_matrixes = transform_matrixes.astype(np.float32)
             render.render(context, transform_matrixes)
 
-            rendered_image = render.getDepth(self.info)
-            for im in rendered_image:
-                cv2.imshow("rendered_image", im)
-                cv2.waitKey(0)
+
+            """ For debug """
+            # rendered_image = render.getDepth(self.info)
+            # for im in rendered_image:
+            #     cv2.imshow("rendered_image", im)
+            #     cv2.waitKey(0)
 
             """ Access to the CUDA memory to get the scores of each pose hypothesis. """
             scores = render.getMatchingScores(len(poses))

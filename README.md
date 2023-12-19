@@ -6,6 +6,10 @@
  * __CUDA >= 10.2__     (We tested on CUDA 10.2)
  * __Pytorch >= 1.5.0__ (We tested on Pytorch 1.5 and 1.7.1 and 1.9)
 
+### NVIDIA RTX 4090 GPU
+ * __CUDA = 11.8__ 
+ * __Pytorch = 1.13.1__
+
 ## Installation
 
 Change compile.sh line 5 to the glm library include path. This library can be downloaded from this [link](https://github.com/g-truc/glm).
@@ -18,7 +22,16 @@ Change compile.sh line 5 to the glm library include path. This library can be do
 
 Or you can just run below in your own anaconda environment.
 
-    $ pip install opencv-python transforms3d open3d scipy
+    $ pip install opencv-python transforms3d open3d scipy zmq
+    
+RTX 4090:
+
+    $ pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1
+
+Else:
+
+    Install other version of torch
+    
 
 ## How to make predefined grasp poses
 ### Convert obj file to pcd file

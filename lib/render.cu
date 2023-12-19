@@ -481,13 +481,13 @@ void CalcMatchingScore_GPU(FrameBuffer& frameBuffer) {
 		float matching_scores = 0.8 * (1.-eVSD) + 0.2 * IOU;
 		frameBuffer.matching_scores[j] = matching_scores;
 
-		printf("====== %d ========\n", j);
-		printf("score_sum : %f\n", score_sum);
-		printf("inter_sum : %f\n", inter_sum);
-		printf("union_sum : %f\n", union_sum);
-		printf("IOU : %f\n", IOU);
-		printf("eVSD : %f\n", eVSD);
-		printf("matching_scores : %f\n", matching_scores);
+		// printf("====== %d ========\n", j);
+		// printf("score_sum : %f\n", score_sum);
+		// printf("inter_sum : %f\n", inter_sum);
+		// printf("union_sum : %f\n", union_sum);
+		// printf("IOU : %f\n", IOU);
+		// printf("eVSD : %f\n", eVSD);
+		// printf("matching_scores : %f\n", matching_scores);
 
 	}
 	free(score_count_host);
